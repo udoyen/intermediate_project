@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 /**
@@ -53,8 +55,8 @@ public class GithubAdapter  extends ArrayAdapter<Github> {
         ImageView userImageView = (ImageView) listItemView.findViewById(R.id.userImage);
 
         // Get the user image url from the current Github object and
-        // set this on the ImageView
-        //userImageView.setImageResource(currentGithubUser.getmUserImageUrl());
+        // set this on the ImageView using picasso library
+        Picasso.with(getContext()).load(currentGithubUser.getmUserImageUrl()).into(userImageView);
 
         return listItemView;
     }

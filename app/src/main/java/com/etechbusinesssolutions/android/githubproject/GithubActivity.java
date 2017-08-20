@@ -27,7 +27,8 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
 
     public  static final String LOG_TAG = GithubActivity.class.getName();
 
-    URL url;
+    // Used to setup UrlQuery String
+    URL url = null;
 
     /**
      * Adapter for the list of Github users

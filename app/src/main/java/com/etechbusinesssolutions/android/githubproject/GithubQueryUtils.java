@@ -177,7 +177,7 @@ public class GithubQueryUtils {
 
     public static List<Github> fetchGithubData(String requestUrl){
 
-        try {
+        try {//TODO: Remove this try catch block
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -196,8 +196,11 @@ public class GithubQueryUtils {
             Log.e(LOG_TAG, "Problem making the HTTP request.", e);
         }
 
+        //TODO: Implement the JSON image string to bitmap conversion here before returning fetched data
+
         // Extract relevant fields from the JSON response and create a list of {@link Github}
         List<Github> github = extractFeatureFromJson(jsonResponse); // TODO: Remove redundant code
+
 
         // Return the list of {@link Github}
         return github;
