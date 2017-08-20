@@ -197,7 +197,7 @@ public class GithubQueryUtils {
         }
 
         // Extract relevant fields from the JSON response and create a list of {@link Github}
-        List<Github> github = extractFeatureFromJson(jsonResponse);
+        List<Github> github = extractFeatureFromJson(jsonResponse); // TODO: Remove redundant code
 
         // Return the list of {@link Github}
         return github;

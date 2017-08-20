@@ -37,7 +37,7 @@ public class GithubLoader extends AsyncTaskLoader<List<Github>> {
             return null;
         }
 
-        List<Github> result = GithubQueryUtils.fetchGithubData(mUrl);
+        List<Github> result = GithubQueryUtils.fetchGithubData(mUrl); //TODO: Remove redundant code
 
         return result;
 
