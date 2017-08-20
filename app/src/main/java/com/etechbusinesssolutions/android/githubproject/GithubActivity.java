@@ -126,8 +126,10 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
         Uri baseUri = Uri.parse(GITHUB_LAGOS_USERS_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
-        uriBuilder.appendQueryParameter("access_token", "eeaee5ef796ddefc59bcaa17a3889987ba905470");
+        //uriBuilder.appendQueryParameter("access_token", "eeaee5ef796ddefc59bcaa17a3889987ba905470"); //TODO: Remove this line
         uriBuilder.appendQueryParameter("q", "location:lagos+language:java");
+        uriBuilder.appendQueryParameter("page", "1");
+        uriBuilder.appendQueryParameter("per_page", "100");
 
 
         try {
@@ -155,10 +157,6 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
 
         Log.i(LOG_TAG, "TEST: onLoadFinished() called ...");
 
-        // Set empty state text to display "No users for location lagos found."
-        mEmptyStateTextView.setText(R.string.empty_text);
-        // Center the "No users for location lagos found" text
-        mEmptyStateTextView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 
         // Update the UI with the result
         // Clear the adapter of previous earthquake data
@@ -168,6 +166,12 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
         // data set. This will trigger the ListView to update.
         if (data != null && !data.isEmpty()) {
             mGithubAdapter.addAll(data);
+        } else {
+
+            // Set empty state text to display "No users for location lagos found."
+            mEmptyStateTextView.setText(R.string.empty_text);
+            // Center the "No users for location lagos found" text
+            mEmptyStateTextView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         }
 
     }
