@@ -56,7 +56,11 @@ public class GithubAdapter  extends ArrayAdapter<Github> {
 
         // Get the user image url from the current Github object and
         // set this on the ImageView using picasso library
-        Picasso.with(getContext()).load(currentGithubUser.getmUserImageUrl()).into(userImageView);
+        Picasso.with(getContext()).load(currentGithubUser.getmUserImageUrl())
+                .placeholder(R.drawable.user_image)
+                .resize(50, 50)
+                .transform(new ImageTrans_CircleTransform())
+                .into(userImageView);
 
         return listItemView;
     }
