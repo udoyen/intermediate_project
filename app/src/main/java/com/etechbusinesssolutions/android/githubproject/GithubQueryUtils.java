@@ -31,14 +31,14 @@ public class GithubQueryUtils {
      * This class is only meant to hold static variables and methods, which can be accessed
      * directly from the class name QueryUtils (and an object instance of QueryUtils is not needed).
      */
-    private GithubQueryUtils(){
+    private GithubQueryUtils() {
 
     }
 
-    private static List<Github> extractFeatureFromJson(String githubJSON){
+    private static List<Github> extractFeatureFromJson(String githubJSON) {
 
         // if the JSON string is empty or null, then return early.
-        if (TextUtils.isEmpty(githubJSON)){
+        if (TextUtils.isEmpty(githubJSON)) {
             return null;
         }
 
@@ -49,7 +49,7 @@ public class GithubQueryUtils {
         // Try to parse the JSON response string. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
-        try{
+        try {
 
             // Create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(githubJSON);
@@ -59,7 +59,7 @@ public class GithubQueryUtils {
             JSONArray githubArray = baseJsonResponse.getJSONArray("items");
 
             // For each github user in the githubArray, create an {@link Github} object
-            for (int i = 0; i < githubArray.length(); i++){
+            for (int i = 0; i < githubArray.length(); i++) {
 
                 // Get a single user at the position i within the list of earthquakes
                 JSONObject currentGithubUser = githubArray.getJSONObject(i);
@@ -74,15 +74,14 @@ public class GithubQueryUtils {
 
                 // Create a new {@link Github} object with the user login name, image
                 // and profile url
-                Github githubuser = new Github(username, imageUrl); //TODO: add profile url
+                Github githubuser = new Github(username, imageUrl, profileUrl); //TODO: add profile url
 
                 // Add the new {@link Github} to the list of githubusers.
                 githubUsers.add(githubuser);
 
 
-
             }
-        } catch (JSONException e){
+        } catch (JSONException e) {
 
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
@@ -109,19 +108,19 @@ public class GithubQueryUtils {
         return url;
     }
 
-    private static String makeHttpRequest(URL url) throws IOException{
+    private static String makeHttpRequest(URL url) throws IOException {
 
         String jsonResponse = "";
 
         // If the url is null, then return early.
-        if (url == null){
+        if (url == null) {
             return jsonResponse;
         }
 
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
 
-        try{
+        try {
 
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setReadTimeout(10000 /* milliseconds */);
@@ -153,7 +152,7 @@ public class GithubQueryUtils {
             }
         }
 
-         return jsonResponse;
+        return jsonResponse;
     }
 
     /**
@@ -175,7 +174,7 @@ public class GithubQueryUtils {
     }
 
 
-    public static List<Github> fetchGithubData(String requestUrl){
+    public static List<Github> fetchGithubData(String requestUrl) {
 
         try {//TODO: Remove this try catch block
             Thread.sleep(2000);

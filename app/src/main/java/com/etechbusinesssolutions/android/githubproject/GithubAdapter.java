@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 
 public class GithubAdapter  extends ArrayAdapter<Github> {
 
-    private static final String LOG_TAG = GithubAdapter.class.getSimpleName();
+    private static final String LOG_TAG = GithubAdapter.class.getSimpleName();//TODO: Remove redundant code
 
     public GithubAdapter(Activity contect, ArrayList<Github> githubUsers){
 
@@ -44,7 +43,7 @@ public class GithubAdapter  extends ArrayAdapter<Github> {
         final Github currentGithubUser = getItem(position);
 
         // Find the login name TextView in the list_item.xml
-        TextView loginNameTextView = (TextView) listItemView.findViewById(R.id.username);
+        TextView loginNameTextView = (TextView) listItemView.findViewById(R.id.username);//TODO: Remove redundant code
 
 
         // Get the login name from the current Github object and
@@ -53,7 +52,7 @@ public class GithubAdapter  extends ArrayAdapter<Github> {
         loginNameTextView.setText(currentGithubUser.getmUserName());
 
         // Find the image view in the list_item.xml
-        ImageView userImageView = (ImageView) listItemView.findViewById(R.id.userImage);
+        ImageView userImageView = (ImageView) listItemView.findViewById(R.id.userImage);//TODO: Remove redundant code
 
         // Get the user image url from the current Github object and
         // set this on the ImageView using picasso library
@@ -63,14 +62,6 @@ public class GithubAdapter  extends ArrayAdapter<Github> {
                 .transform(new ImageTrans_CircleTransform())
                 .into(userImageView);
 
-        ImageView detailImage = (ImageView) listItemView.findViewById(R.id.detailImage);
-
-        detailImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getContext(), "It worked adapter", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         return listItemView;
     }

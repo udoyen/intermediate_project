@@ -14,18 +14,17 @@ public class Github {
 
 
     /**
-     *
-     * @param vUserName string username
+     * @param vUserName     string username
      * @param vUserImageUrl string image url
      */
-    public Github(String vUserName, String vUserImageUrl){
+    public Github(String vUserName, String vUserImageUrl, String vUserProfileUrl) {
 
         mUserName = vUserName;
         mUserImageUrl = vUserImageUrl;
+        mUserProfileUrl = vUserProfileUrl;
     }
 
     /**
-     *
      * @return username of github user
      */
     public String getmUserName() {
@@ -33,10 +32,13 @@ public class Github {
     }
 
     /**
-     *
      * @return user image url of github user
      */
     public String getmUserImageUrl() {
         return mUserImageUrl;
+    }
+
+    public String getmUserProfileUrl() {
+        return mUserProfileUrl;
     }
 }

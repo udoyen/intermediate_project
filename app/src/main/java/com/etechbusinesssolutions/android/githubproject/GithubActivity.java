@@ -3,6 +3,7 @@ package com.etechbusinesssolutions.android.githubproject;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -16,7 +17,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -27,7 +27,7 @@ import java.util.List;
 
 public class GithubActivity extends AppCompatActivity implements LoaderCallbacks<List<Github>> {
 
-    public  static final String LOG_TAG = GithubActivity.class.getName();
+    public static final String LOG_TAG = GithubActivity.class.getName(); //TODO: Remove
 
     // Used to setup UrlQuery String
     URL url = null;
@@ -55,10 +55,8 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
     /**
      * Constant value for the github loader ID. We can choose any integer
      * This really comes into play when you're using multiple loaders
-     *
      */
     private static final int GITHUB_LOADER_ID = 1;
-
 
 
     @Override
@@ -67,12 +65,12 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
         setContentView(R.layout.github_activity);
 
         // Find a reference to the {@link ListView} in the layout
-        ListView githubListView = (ListView) findViewById(R.id.list);
+        ListView githubListView = (ListView) findViewById(R.id.list);//TODO: Remove redundant code
 
         // Get the empty  Text view
-        mEmptyStateTextView= (TextView) findViewById(R.id.empty);
+        mEmptyStateTextView = (TextView) findViewById(R.id.empty); //TODO: Remove redundant code
 
-        progressBar = (ProgressBar) findViewById(R.id.loading_spinner);
+        progressBar = (ProgressBar) findViewById(R.id.loading_spinner);//TODO: Remove redundant code
 
         // Create a new adapter that takes an empty
         // list of github users as input
@@ -82,12 +80,26 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
         // so the list can be populated in the user interface
         githubListView.setAdapter(mGithubAdapter);
 
-        //TODO: add activity intent for click event
+
         // Respond to click event on user item
         githubListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(GithubActivity.this, "it worked", Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                // Get the current github user that was clicked
+                Github currentGithubUser = mGithubAdapter.getItem(position);
+
+                // Create a new intent to view user profile
+                Intent userProfileIntent = new Intent(mGithubAdapter.getContext(), UserProfileActivity.class);
+
+                // Parse in the username, image url and profile url into
+                // the UserProfileActivity
+                userProfileIntent.putExtra("username", currentGithubUser.getmUserName());
+                userProfileIntent.putExtra("image", currentGithubUser.getmUserImageUrl());
+                userProfileIntent.putExtra("profile_url", currentGithubUser.getmUserProfileUrl());
+
+                // Send the intent to the user profile activity
+                startActivity(userProfileIntent);
             }
         });
 
@@ -101,7 +113,7 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
         NetworkInfo activeNetwork = connMgr.getActiveNetworkInfo();
 
 
-        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()){
+        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
 
             // Get a reference to the loader manager in order to interact with loaders
             Log.i(LOG_TAG, "TEST: Get the LoadManager being used ...");
@@ -124,7 +136,6 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
 
         }
     }
-
 
 
     @Override

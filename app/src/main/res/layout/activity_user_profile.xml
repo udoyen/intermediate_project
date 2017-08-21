@@ -8,6 +8,7 @@
     tools:context="com.etechbusinesssolutions.android.githubproject.UserProfileActivity">
 
     <RelativeLayout
+        android:id="@+id/image_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -17,25 +18,53 @@
             android:id="@+id/first_dummy"
             android:layout_width="144dp"
             android:layout_height="144dp"
-            android:background="@drawable/profile_dummy_image"
-            android:layout_marginLeft="10dp"/>
-        <ImageView
-            android:id="@+id/main_image"
-            android:layout_width="144dp"
-            android:layout_height="144dp"
-            android:layout_marginLeft="190dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/profile_dummy_image"/>
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/profile_dummy_image" />
+
         <ImageView
             android:id="@+id/second_dummy"
             android:layout_width="144dp"
             android:layout_height="144dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="190dp"
+            android:background="@drawable/profile_dummy_image" />
+
+        <ImageView
+            android:id="@+id/main_image"
+            android:layout_width="144dp"
+            android:layout_height="144dp"
             android:layout_marginLeft="100dp"
-            android:background="@drawable/profile_image"/>
+            android:background="@drawable/profile_image" />
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/text_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image_container"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/username"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/profile_url"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="@string/dummy_profile_url"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
 
 
     <android.support.design.widget.FloatingActionButton
@@ -45,6 +74,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/store_white"/>
+        android:src="@drawable/store_white" />
 
 </RelativeLayout>
