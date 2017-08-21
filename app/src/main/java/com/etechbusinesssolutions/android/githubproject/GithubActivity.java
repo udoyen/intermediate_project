@@ -237,9 +237,9 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
 
 
     /*
- * Listen for option item selections so that we receive a notification
- * when the user requests a refresh by selecting the refresh action bar item.
- */
+     * Listen for option item selections so that we receive a notification
+     * when the user requests a refresh by selecting the refresh action bar item.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -91,7 +91,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
                 shareIntent.setType("text/plain");
 
-                shareIntent.putExtra(Intent.EXTRA_TEXT, "@" + username + "" + profile_url);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this awesome developer" + " " + "@" + username + "\n" + profile_url);
                 shareIntent.putExtra(Intent.EXTRA_HTML_TEXT, profile_url);
 
                 // Start the intent
