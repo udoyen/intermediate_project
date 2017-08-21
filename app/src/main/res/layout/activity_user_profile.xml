@@ -4,7 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="20dp"
     tools:context="com.etechbusinesssolutions.android.githubproject.UserProfileActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/first_dummy"
+            android:layout_width="144dp"
+            android:layout_height="144dp"
+            android:background="@drawable/profile_dummy_image"
+            android:layout_marginLeft="10dp"/>
+        <ImageView
+            android:id="@+id/main_image"
+            android:layout_width="144dp"
+            android:layout_height="144dp"
+            android:layout_marginLeft="190dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/profile_dummy_image"/>
+        <ImageView
+            android:id="@+id/second_dummy"
+            android:layout_width="144dp"
+            android:layout_height="144dp"
+            android:layout_marginLeft="100dp"
+            android:background="@drawable/profile_image"/>
+
+    </RelativeLayout>
 
 
 
