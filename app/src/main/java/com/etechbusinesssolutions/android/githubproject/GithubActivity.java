@@ -153,6 +153,7 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
                         // This method performs the actual data-refresh operation.
                         // The method calls setRefreshing(false) when it's finished.
                         userPageRefreshAction();
+
                     }
                 }
         );
@@ -242,6 +243,7 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
 
             // Check if user triggered a refresh:
@@ -293,6 +295,9 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
             mEmptyStateTextView.setText(R.string.no_internet_connection);
 
         }
+
+        // Stop loading refreshing animation
+        mySwipeRefreshLayout.setRefreshing(false);
 
     }
 }

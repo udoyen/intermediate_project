@@ -11,6 +11,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,15 +28,18 @@ public class UserProfileActivity extends AppCompatActivity {
      */
     private SwipeRefreshLayout mySwipeRefreshLayout;
 
-    private TextView profileUrlTextView;
-
-    private ImageView userImage;
-
-    private TextView usernameTextView;
-
-    private String username = null;
-    private String image = null;
-    private String profile_url = null;
+    /**
+     * Github username
+     */
+    private String username;
+    /**
+     * User image url
+     */
+    private String image;
+    /**
+     * User profile url
+     */
+    private String profile_url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +99,8 @@ public class UserProfileActivity extends AppCompatActivity {
                         // This method performs the actual data-refresh operation.
                         // The method calls setRefreshing(false) when it's finished.
                         userPageRefreshAction();
+
+
                     }
                 }
         );
@@ -104,7 +110,7 @@ public class UserProfileActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_catalog.xml file.
         // This adds menu items to the app bar.
-        getMenuInflater().inflate(R.menu.menu_swipe, menu);
+        getMenuInflater().inflate(R.menu.menu_profile_swipe, menu);
         return true;
     }
 
@@ -125,20 +131,19 @@ public class UserProfileActivity extends AppCompatActivity {
 
         } else {
 
-
             Toast.makeText(this, "No Internet Connection", Toast.LENGTH_LONG).show();
 
         }
 
     }
 
-    public void updateViews(){
+    public void updateViews() {
 
         Log.i(LOG_TAG, "Test: UpdateViews() called ...");
 
         if (username != null) {
             // Set the username TextView
-            usernameTextView = findViewById(R.id.username);
+            TextView usernameTextView = findViewById(R.id.username);
             usernameTextView.setText(username);
             Log.i(LOG_TAG, "Test: profile username added ...");//TODO: Remove redundant code
         }
@@ -146,7 +151,7 @@ public class UserProfileActivity extends AppCompatActivity {
         if (image != null) {
             Log.i(LOG_TAG, "Test: image url" + " " + image); //TODO: Remove redundant code
             // Set the user image using Picasso library
-            userImage = findViewById(R.id.main_image);
+            ImageView userImage = findViewById(R.id.main_image);
             Picasso.with(this).load(image)
                     .resize(144, 144)
                     .transform(new ImageTrans_CircleTransform())
@@ -158,7 +163,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         if (profile_url != null) {
             // Set the username TextView
-            profileUrlTextView = findViewById(R.id.profile_url);
+            TextView profileUrlTextView = findViewById(R.id.profile_url);
             profileUrlTextView.setText(profile_url);
 
             Log.i(LOG_TAG, "Test: Profile url added ..."); //TODO: Remove
@@ -178,5 +183,37 @@ public class UserProfileActivity extends AppCompatActivity {
                 }
             });
         }
+
+        // Stop loading refreshing animation
+        mySwipeRefreshLayout = findViewById(R.id.swiperefresh);
+        mySwipeRefreshLayout.setRefreshing(false);
+    }
+
+    /*
+     * Listen for option item selections so that we receive a notification
+     * when the user requests a refresh by selecting the refresh action bar item.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            // Check if user triggered a refresh:
+            case R.id.menu_refresh:
+                Log.i(LOG_TAG, "Refresh menu item selected");
+
+                // Signal SwipeRefreshLayout to start the progress indicator
+                mySwipeRefreshLayout.setRefreshing(true);
+
+                // Start the refresh background task.
+                // This method calls setRefreshing(false) when it's finished.
+                userPageRefreshAction();
+
+                return true;
+        }
+
+        // User didn't trigger a refresh, let the superclass handle this action
+        return super.onOptionsItemSelected(item);
+
     }
 }
