@@ -4,4 +4,5 @@
     <string name="empty_text">No Users for location lagos found</string>
     <string name="dummy_profile_url">https://github.com/githubprofileurl</string>
     <string name="username">Username</string>
+    <string name="menu_refresh">refresh app</string>
 </resources>

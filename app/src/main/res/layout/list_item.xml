@@ -13,7 +13,7 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/all_out_black"/>
+        android:src="@drawable/all_out_black" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -28,15 +28,14 @@
             android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="username"
             android:maxLines="2"
             android:paddingBottom="12dp"
-            android:textColor="@color/primaryText"
-            android:textSize="16sp"
             android:paddingTop="10dp"
-            />
+            android:text="username"
+            android:textColor="@color/primaryText"
+            android:textSize="16sp" />
 
-        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -51,9 +50,9 @@
             android:id="@+id/detailImage"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:src="@drawable/fingerprint_black"
-            android:background="@drawable/user_profile"/>
+            android:background="@drawable/user_profile"
+            android:src="@drawable/fingerprint_black" />
 
-        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

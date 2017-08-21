@@ -18,13 +18,13 @@ import java.util.ArrayList;
  * Created by george on 8/20/17.
  */
 
-public class GithubAdapter  extends ArrayAdapter<Github> {
+public class GithubAdapter extends ArrayAdapter<Github> {
 
     private static final String LOG_TAG = GithubAdapter.class.getSimpleName();//TODO: Remove redundant code
 
-    public GithubAdapter(Activity contect, ArrayList<Github> githubUsers){
+    public GithubAdapter(Activity contect, ArrayList<Github> githubUsers) {
 
-         super(contect, 0, githubUsers);
+        super(contect, 0, githubUsers);
     }
 
     @NonNull
@@ -43,7 +43,7 @@ public class GithubAdapter  extends ArrayAdapter<Github> {
         final Github currentGithubUser = getItem(position);
 
         // Find the login name TextView in the list_item.xml
-        TextView loginNameTextView = (TextView) listItemView.findViewById(R.id.username);//TODO: Remove redundant code
+        TextView loginNameTextView = listItemView.findViewById(R.id.username);
 
 
         // Get the login name from the current Github object and
@@ -52,7 +52,7 @@ public class GithubAdapter  extends ArrayAdapter<Github> {
         loginNameTextView.setText(currentGithubUser.getmUserName());
 
         // Find the image view in the list_item.xml
-        ImageView userImageView = (ImageView) listItemView.findViewById(R.id.userImage);//TODO: Remove redundant code
+        ImageView userImageView = listItemView.findViewById(R.id.userImage);
 
         // Get the user image url from the current Github object and
         // set this on the ImageView using picasso library

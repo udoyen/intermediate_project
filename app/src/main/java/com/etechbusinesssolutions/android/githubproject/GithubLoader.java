@@ -17,7 +17,7 @@ public class GithubLoader extends AsyncTaskLoader<List<Github>> {
 
     private String mUrl;
 
-    public GithubLoader(Context context, String url){
+    public GithubLoader(Context context, String url) {
         super(context);
         mUrl = url;
     }
@@ -37,7 +37,7 @@ public class GithubLoader extends AsyncTaskLoader<List<Github>> {
             return null;
         }
 
-        List<Github> result = GithubQueryUtils.fetchGithubData(mUrl); //TODO: Remove redundant code
+        List<Github> result = GithubQueryUtils.fetchGithubData(mUrl);
 
         return result;
 

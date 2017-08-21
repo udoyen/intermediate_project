@@ -9,9 +9,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -28,36 +31,34 @@ import java.util.List;
 public class GithubActivity extends AppCompatActivity implements LoaderCallbacks<List<Github>> {
 
     public static final String LOG_TAG = GithubActivity.class.getName(); //TODO: Remove
-
-    // Used to setup UrlQuery String
-    URL url = null;
-
-    /**
-     * Adapter for the list of Github users
-     */
-    private GithubAdapter mGithubAdapter;
-
     /**
      * URL for github users data from github API
      */
     private static final String GITHUB_LAGOS_USERS_URL = "https://api.github.com/search/users";
-
+    /**
+     * Constant value for the github loader ID. We can choose any integer
+     * This really comes into play when you're using multiple loaders
+     */
+    private static final int GITHUB_LOADER_ID = 1;
+    // Used to setup UrlQuery String
+    URL url = null;
+    /**
+     * Adapter for the list of Github users
+     */
+    private GithubAdapter mGithubAdapter;
     /**
      * TextView that is displayed when the list is empty
      */
     private TextView mEmptyStateTextView;
-
     /**
      * Progressbar that is displayed before loader loads data
      */
     private ProgressBar progressBar;
 
     /**
-     * Constant value for the github loader ID. We can choose any integer
-     * This really comes into play when you're using multiple loaders
+     * SwipeRefreshView
      */
-    private static final int GITHUB_LOADER_ID = 1;
-
+    private SwipeRefreshLayout mySwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +66,12 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
         setContentView(R.layout.github_activity);
 
         // Find a reference to the {@link ListView} in the layout
-        ListView githubListView = (ListView) findViewById(R.id.list);//TODO: Remove redundant code
+        ListView githubListView = findViewById(R.id.list);
 
         // Get the empty  Text view
-        mEmptyStateTextView = (TextView) findViewById(R.id.empty); //TODO: Remove redundant code
+        mEmptyStateTextView = findViewById(R.id.empty);
 
-        progressBar = (ProgressBar) findViewById(R.id.loading_spinner);//TODO: Remove redundant code
+        progressBar = findViewById(R.id.loading_spinner);
 
         // Create a new adapter that takes an empty
         // list of github users as input
@@ -106,7 +107,7 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
 
 
         // Get a reference to the ConnectivityManager to check state of network connectivity
-        Log.i(LOG_TAG, "TEST: Connectivity Manager Instance created ...");
+        Log.i(LOG_TAG, "TEST: Connectivity Manager Instance created ..."); // TODO: Remove
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         //check internet connection
@@ -136,6 +137,26 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
             mEmptyStateTextView.setText(R.string.no_internet_connection);
 
         }
+
+
+        /*
+         * Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
+         * performs a swipe-to-refresh gesture.
+         */
+        mySwipeRefreshLayout = findViewById(R.id.swiperefresh);
+        mySwipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        Log.i(LOG_TAG, "onRefresh called from SwipeRefreshLayout");
+
+                        // This method performs the actual data-refresh operation.
+                        // The method calls setRefreshing(false) when it's finished.
+                        userPageRefreshAction();
+                    }
+                }
+        );
+
     }
 
 
@@ -148,7 +169,6 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
         Uri baseUri = Uri.parse(GITHUB_LAGOS_USERS_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
-        //uriBuilder.appendQueryParameter("access_token", "eeaee5ef796ddefc59bcaa17a3889987ba905470"); //TODO: Remove this line
         uriBuilder.appendQueryParameter("q", "location:lagos+language:java");
         uriBuilder.appendQueryParameter("page", "1");
         uriBuilder.appendQueryParameter("per_page", "100");
@@ -204,6 +224,75 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
         Log.i(LOG_TAG, "TEST: onLoadReset() called ...");
         //Loader reset, so we can clear out our existing data
         mGithubAdapter.clear();
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu options from the res/menu/menu_swipe.xml file.
+        // This adds menu items to the app bar.
+        getMenuInflater().inflate(R.menu.menu_swipe, menu);
+        return true;
+    }
+
+
+    /*
+ * Listen for option item selections so that we receive a notification
+ * when the user requests a refresh by selecting the refresh action bar item.
+ */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            // Check if user triggered a refresh:
+            case R.id.menu_refresh:
+                Log.i(LOG_TAG, "Refresh menu item selected");
+
+                // Signal SwipeRefreshLayout to start the progress indicator
+                mySwipeRefreshLayout.setRefreshing(true);
+
+                // Start the refresh background task.
+                // This method calls setRefreshing(false) when it's finished.
+                userPageRefreshAction();
+
+                return true;
+        }
+
+        // User didn't trigger a refresh, let the superclass handle this action
+        return super.onOptionsItemSelected(item);
+
+    }
+
+    public void userPageRefreshAction() {
+
+        // Get a reference to the ConnectivityManager to check state of network connectivity
+        Log.i(LOG_TAG, "TEST: Connectivity Manager Instance created ..."); // TODO: Remove
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        //check internet connection
+        Log.i(LOG_TAG, "TEST: Internet connection checked ...");
+        NetworkInfo activeNetwork = connMgr.getActiveNetworkInfo();
+
+
+        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
+
+            // Get a reference to the loader manager in order to interact with loaders
+            Log.i(LOG_TAG, "TEST: Get the LoadManager being used ...");
+            LoaderManager loaderManager = getLoaderManager();
+
+            // Initialize the loader. Pass in the int ID constant defined above and pass in null for
+            // bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
+            // because this activity implements the LoaderCallbacks interface).
+            Log.i(LOG_TAG, "TEST: Calling initloader()...");
+            loaderManager.initLoader(GITHUB_LOADER_ID, null, this);
+
+        } else {
+
+
+            //if there's no data to show. display TextView to no internet connection
+            mEmptyStateTextView.setText(R.string.no_internet_connection);
+
+        }
 
     }
 }

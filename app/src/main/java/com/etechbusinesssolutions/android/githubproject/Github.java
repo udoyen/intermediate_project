@@ -10,7 +10,7 @@ public class Github {
     // user image url
     private String mUserImageUrl;
     // user profile url
-    private String mUserProfileUrl; //TODO: add code for user profile page
+    private String mUserProfileUrl;
 
 
     /**

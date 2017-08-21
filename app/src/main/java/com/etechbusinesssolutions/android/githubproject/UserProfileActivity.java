@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,7 +37,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
         if (username != null) {
             // Set the username TextView
-            TextView usernameTextView = (TextView) findViewById(R.id.username);//TODO: Remove redundant code
+            TextView usernameTextView = findViewById(R.id.username);
             usernameTextView.setText(username);
             Log.i(LOG_TAG, "Test: profile username added ...");//TODO: Remove redundant code
         }
@@ -44,7 +45,7 @@ public class UserProfileActivity extends AppCompatActivity {
         if (image != null) {
             Log.i(LOG_TAG, "Test: image url" + " " + image); //TODO: Remove redundant code
             // Set the user image using Picasso library
-            ImageView userImage = (ImageView) findViewById(R.id.main_image); //TODO: Remove redundant code
+            ImageView userImage = findViewById(R.id.main_image);
             Picasso.with(this).load(image)
                     .resize(144, 144)
                     .transform(new ImageTrans_CircleTransform())
@@ -56,16 +57,20 @@ public class UserProfileActivity extends AppCompatActivity {
 
         if (profile_url != null) {
             // Set the username TextView
-            TextView profileUrlTextView = (TextView) findViewById(R.id.profile_url);//TODO: Remove redundant code
+            TextView profileUrlTextView = findViewById(R.id.profile_url);
             profileUrlTextView.setText(profile_url);
 
             Log.i(LOG_TAG, "Test: Profile url added ..."); //TODO: Remove
 
+            /**
+             * setup user profile click event
+             */
             profileUrlTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    // Create an Intent for browser
+                    // Create an Intent for browser and parse in the URL of the
+                    // user's profile
                     Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(profile_url));
                     startActivity(browser);
 
@@ -74,7 +79,7 @@ public class UserProfileActivity extends AppCompatActivity {
         }
 
         // Create a new FloatingActionButton Class
-        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);//TODO: Remove redundant code
+        FloatingActionButton floatingActionButton = findViewById(R.id.fab);
 
         // Set a click event on the FAB
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -94,5 +99,13 @@ public class UserProfileActivity extends AppCompatActivity {
                 //Toast.makeText(UserProfileActivity.this, "FAB caller", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu options from the res/menu/menu_catalog.xml file.
+        // This adds menu items to the app bar.
+        getMenuInflater().inflate(R.menu.menu_swipe, menu);
+        return true;
     }
 }
