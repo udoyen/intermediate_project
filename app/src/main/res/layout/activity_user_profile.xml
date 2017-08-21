@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
+    android:background="@color/colorPrimaryLight"
     tools:context="com.etechbusinesssolutions.android.githubproject.UserProfileActivity">
 
     <ScrollView
@@ -53,31 +54,35 @@
                 android:id="@+id/text_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:orientation="vertical">
+                android:layout_marginTop="28dp"
+                android:orientation="vertical"
+                android:padding="4dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/account_circle_grey" />
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/account_circle_grey"
+                        android:background="@drawable/profile_url_background"/>
 
                     <TextView
                         android:id="@+id/username"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
+                        android:padding="10dp"
+                        android:gravity="center_vertical"
                         android:text="@string/username"
                         android:textColor="@color/primaryText"
-                        android:textSize="25sp" />
+                        android:textSize="17sp"
+                        android:background="@drawable/profile_info_background"/>
 
                 </LinearLayout>
 
@@ -85,26 +90,29 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="10dp">
 
                     <ImageView
-                        android:layout_width="38dp"
-                        android:layout_height="38dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/profile_url_background"
-                        android:src="@drawable/perm_identity_grey" />
+                        android:src="@drawable/account_circle_grey" />
 
                     <TextView
                         android:id="@+id/profile_url"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginBottom="10dp"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="13dp"
+                        android:layout_marginBottom="0dp"
+                        android:layout_marginLeft="5dp"
+                        android:padding="10dp"
                         android:text="@string/dummy_profile_url"
                         android:textColor="@color/primaryText"
-                        android:textSize="18sp" />
+                        android:textSize="17sp"
+                        android:background="@drawable/profile_info_background"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -112,6 +120,19 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+
+
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        >
+
+
+    </LinearLayout>
 
 
 
@@ -123,6 +144,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/share_grey" />
+        android:src="@drawable/share_white" />
 
 </RelativeLayout>
