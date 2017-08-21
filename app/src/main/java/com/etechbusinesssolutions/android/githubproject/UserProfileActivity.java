@@ -1,8 +1,12 @@
 package com.etechbusinesssolutions.android.githubproject;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,9 +30,9 @@ public class UserProfileActivity extends AppCompatActivity {
         }
 
         // Pass the values from extras into variables
-        String username = extras.getString("username");
+        final String username = extras.getString("username");
         String image = extras.getString("image");
-        String profile_url = extras.getString("profile_url");
+        final String profile_url = extras.getString("profile_url");
 
         if (username != null) {
             // Set the username TextView
@@ -55,7 +59,40 @@ public class UserProfileActivity extends AppCompatActivity {
             TextView profileUrlTextView = (TextView) findViewById(R.id.profile_url);//TODO: Remove redundant code
             profileUrlTextView.setText(profile_url);
 
-            Log.i(LOG_TAG, "Test: Profile url added ...");
+            Log.i(LOG_TAG, "Test: Profile url added ..."); //TODO: Remove
+
+            profileUrlTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // Create an Intent for browser
+                    Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(profile_url));
+                    startActivity(browser);
+
+                }
+            });
         }
+
+        // Create a new FloatingActionButton Class
+        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);//TODO: Remove redundant code
+
+        // Set a click event on the FAB
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Create an Intent
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+
+                shareIntent.setType("text/plain");
+
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "@" + username + "" + profile_url);
+                shareIntent.putExtra(Intent.EXTRA_HTML_TEXT, profile_url);
+
+                // Start the intent
+                startActivity(Intent.createChooser(shareIntent, "Share with"));
+                //Toast.makeText(UserProfileActivity.this, "FAB caller", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
