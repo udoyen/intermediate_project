@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -38,33 +39,77 @@
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/text_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ScrollView
         android:layout_below="@id/image_container"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="15dp"
-        android:orientation="vertical">
+        android:id="@+id/profile_info_scroll_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp">
 
-        <TextView
-            android:id="@+id/username"
+        <LinearLayout
+            android:id="@+id/text_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="@string/username"
-            android:textSize="25sp" />
 
-        <TextView
-            android:id="@+id/profile_url"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="@string/dummy_profile_url"
-            android:textSize="18sp" />
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/account_circle_grey"
+                    />
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/username"
+                    android:textColor="@color/primaryText"
+                    android:textSize="25sp"/>
+
+            </LinearLayout>
 
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/profile_url_background"
+                    android:src="@drawable/perm_identity_grey"/>
+
+                <TextView
+                    android:id="@+id/profile_url"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="13dp"
+                    android:text="@string/dummy_profile_url"
+                    android:textColor="@color/primaryText"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
 
 
     <android.support.design.widget.FloatingActionButton
@@ -74,6 +119,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/store_white" />
+        android:src="@drawable/share_grey" />
 
 </RelativeLayout>
