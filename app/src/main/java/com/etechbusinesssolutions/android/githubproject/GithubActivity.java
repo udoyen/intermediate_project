@@ -94,6 +94,7 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
 
                 // Parse in the username, image url and profile url into
                 // the UserProfileActivity
+                assert currentGithubUser != null;
                 userProfileIntent.putExtra("username", currentGithubUser.getmUserName());
                 userProfileIntent.putExtra("image", currentGithubUser.getmUserImageUrl());
                 userProfileIntent.putExtra("profile_url", currentGithubUser.getmUserProfileUrl());
