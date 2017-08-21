@@ -13,7 +13,7 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/all_out_black_96x96"/>
+        android:src="@drawable/all_out_black"/>
 
     <LinearLayout
         android:layout_width="0dp"
@@ -51,7 +51,7 @@
             android:id="@+id/detailImage"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:src="@drawable/fingerprint_black_72x72"
+            android:src="@drawable/fingerprint_black"
             android:background="@drawable/user_profile"/>
 
         </LinearLayout>

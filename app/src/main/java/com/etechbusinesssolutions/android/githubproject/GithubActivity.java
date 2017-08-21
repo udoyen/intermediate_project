@@ -12,9 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -81,6 +83,13 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
         githubListView.setAdapter(mGithubAdapter);
 
         //TODO: add activity intent for click event
+        // Respond to click event on user item
+        githubListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(GithubActivity.this, "it worked", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         // Get a reference to the ConnectivityManager to check state of network connectivity

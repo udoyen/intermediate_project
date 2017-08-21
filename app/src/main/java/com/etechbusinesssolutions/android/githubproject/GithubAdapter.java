@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -61,6 +62,15 @@ public class GithubAdapter  extends ArrayAdapter<Github> {
                 .resize(50, 50)
                 .transform(new ImageTrans_CircleTransform())
                 .into(userImageView);
+
+        ImageView detailImage = (ImageView) listItemView.findViewById(R.id.detailImage);
+
+        detailImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "It worked adapter", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return listItemView;
     }
