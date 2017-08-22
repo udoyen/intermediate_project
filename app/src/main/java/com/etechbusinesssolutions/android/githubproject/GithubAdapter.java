@@ -20,9 +20,8 @@ import java.util.ArrayList;
 
 public class GithubAdapter extends ArrayAdapter<Github> {
 
-    private static final String LOG_TAG = GithubAdapter.class.getSimpleName();//TODO: Remove redundant code
 
-    public GithubAdapter(Activity contect, ArrayList<Github> githubUsers) {
+    GithubAdapter(Activity contect, ArrayList<Github> githubUsers) {
 
         super(contect, 0, githubUsers);
     }

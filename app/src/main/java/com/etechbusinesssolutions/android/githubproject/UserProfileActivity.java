@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +20,6 @@ import com.squareup.picasso.Picasso;
 
 public class UserProfileActivity extends AppCompatActivity {
 
-    public static final String LOG_TAG = UserProfileActivity.class.getName();//TODO: Remove redundant code
 
     /**
      * SwipeRefreshView
@@ -47,7 +45,6 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
 
         Bundle extras = getIntent().getExtras();
-        Log.i(LOG_TAG, "Test: extras accessed ...");
 
         // Make sure extra actually captures something from the calling activity
         if (extras == null) {
@@ -60,7 +57,6 @@ public class UserProfileActivity extends AppCompatActivity {
         profile_url = extras.getString("profile_url");
 
         // Update profile views user information
-        Log.i(LOG_TAG, "Test: UpdateViews() to be called ...");
         updateViews();
 
         // Create a new FloatingActionButton Class
@@ -94,7 +90,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
-                        Log.i(LOG_TAG, "onRefresh called from SwipeRefreshLayout");
 
                         // This method performs the actual data-refresh operation.
                         // The method calls setRefreshing(false) when it's finished.
@@ -117,11 +112,9 @@ public class UserProfileActivity extends AppCompatActivity {
     public void userPageRefreshAction() {
 
         // Get a reference to the ConnectivityManager to check state of network connectivity
-        Log.i(LOG_TAG, "TEST: Connectivity Manager Instance created from user profile activity..."); // TODO: Remove
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         //check internet connection
-        Log.i(LOG_TAG, "TEST: Internet connection checked from user profile activity...");
         NetworkInfo activeNetwork = connMgr.getActiveNetworkInfo();
 
 
@@ -139,24 +132,20 @@ public class UserProfileActivity extends AppCompatActivity {
 
     public void updateViews() {
 
-        Log.i(LOG_TAG, "Test: UpdateViews() called ...");
 
         if (username != null) {
             // Set the username TextView
             TextView usernameTextView = findViewById(R.id.username);
             usernameTextView.setText(username);
-            Log.i(LOG_TAG, "Test: profile username added ...");//TODO: Remove redundant code
         }
 
         if (image != null) {
-            Log.i(LOG_TAG, "Test: image url" + " " + image); //TODO: Remove redundant code
             // Set the user image using Picasso library
             ImageView userImage = findViewById(R.id.main_image);
             Picasso.with(this).load(image)
                     .resize(144, 144)
                     .transform(new ImageTrans_CircleTransform())
                     .into(userImage);
-            Log.i(LOG_TAG, "Test: Profile Image added ..."); //TODO: Remove
 
         }
 
@@ -166,7 +155,6 @@ public class UserProfileActivity extends AppCompatActivity {
             TextView profileUrlTextView = findViewById(R.id.profile_url);
             profileUrlTextView.setText(profile_url);
 
-            Log.i(LOG_TAG, "Test: Profile url added ..."); //TODO: Remove
 
             /*
               setup user profile click event
@@ -200,7 +188,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
             // Check if user triggered a refresh:
             case R.id.menu_refresh:
-                Log.i(LOG_TAG, "Refresh menu item selected");
 
                 // Signal SwipeRefreshLayout to start the progress indicator
                 mySwipeRefreshLayout.setRefreshing(true);

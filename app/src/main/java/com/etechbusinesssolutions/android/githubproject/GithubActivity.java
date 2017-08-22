@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,7 +31,6 @@ import java.util.List;
 
 public class GithubActivity extends AppCompatActivity implements LoaderCallbacks<List<Github>> {
 
-    public static final String LOG_TAG = GithubActivity.class.getName(); //TODO: Remove
     /**
      * URL for github users data from github API
      */
@@ -109,30 +107,25 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
 
 
         // Get a reference to the ConnectivityManager to check state of network connectivity
-        Log.i(LOG_TAG, "TEST: Connectivity Manager Instance created ..."); // TODO: Remove
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         //check internet connection
-        Log.i(LOG_TAG, "TEST: Internet connection checked ...");
         NetworkInfo activeNetwork = connMgr.getActiveNetworkInfo();
 
 
         if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
 
             // Get a reference to the loader manager in order to interact with loaders
-            Log.i(LOG_TAG, "TEST: Get the LoadManager being used ...");
             LoaderManager loaderManager = getLoaderManager();
 
             // Initialize the loader. Pass in the int ID constant defined above and pass in null for
             // bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
             // because this activity implements the LoaderCallbacks interface).
-            Log.i(LOG_TAG, "TEST: Calling initloader()...");
             loaderManager.initLoader(GITHUB_LOADER_ID, null, this);
 
         } else {
 
             // progressBar = (ProgressBar) findViewById(R.id.loading_spinner);
-            Log.i(LOG_TAG, "TEST: progressbar made visible ...");
             progressBar.setVisibility(View.GONE);
 
             // Make sure the ListView is empty before displaying "No Internet Connection"
@@ -192,7 +185,6 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
     public Loader<List<Github>> onCreateLoader(int id, Bundle args) {
 
         //Create a new loader for the given URL
-        Log.i(LOG_TAG, "TEST: onCreateLoader() called ...");
 
         Uri baseUri = Uri.parse(GITHUB_LAGOS_USERS_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
@@ -214,18 +206,13 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
         }
 
 
-        Log.i(LOG_TAG, "TEST: uriBuilder String" + uriBuilder.toString());
-
         return new GithubLoader(this, url.toString());
     }
 
     @Override
     public void onLoadFinished(Loader<List<Github>> loader, List<Github> data) {
 
-        Log.i(LOG_TAG, "TEST: progressbar made invisible ...");
         progressBar.setVisibility(View.GONE);
-
-        Log.i(LOG_TAG, "TEST: onLoadFinished() called ...");
 
 
         // Update the UI with the result
@@ -249,7 +236,6 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
     @Override
     public void onLoaderReset(Loader<List<Github>> loader) {
 
-        Log.i(LOG_TAG, "TEST: onLoadReset() called ...");
         //Loader reset, so we can clear out our existing data
         mGithubAdapter.clear();
 
@@ -275,7 +261,6 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
 
             // Check if user triggered a refresh:
             case R.id.menu_refresh:
-                Log.i(LOG_TAG, "Refresh menu item selected");
 
                 // Signal SwipeRefreshLayout to start the progress indicator
                 mySwipeRefreshLayout.setRefreshing(true);
@@ -295,24 +280,20 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
     public void userPageRefreshAction() {
 
         // Get a reference to the ConnectivityManager to check state of network connectivity
-        Log.i(LOG_TAG, "TEST: Connectivity Manager Instance created ..."); // TODO: Remove
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         //check internet connection
-        Log.i(LOG_TAG, "TEST: Internet connection checked ...");
         NetworkInfo activeNetwork = connMgr.getActiveNetworkInfo();
 
 
         if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
 
             // Get a reference to the loader manager in order to interact with loaders
-            Log.i(LOG_TAG, "TEST: Get the LoadManager being used ...");
             LoaderManager loaderManager = getLoaderManager();
 
             // Initialize the loader. Pass in the int ID constant defined above and pass in null for
             // bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
             // because this activity implements the LoaderCallbacks interface).
-            Log.i(LOG_TAG, "TEST: Calling initloader()...");
             loaderManager.initLoader(GITHUB_LOADER_ID, null, this);
 
             // Remove "No Internet Connection" TextView on reconnecting
