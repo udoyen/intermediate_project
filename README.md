@@ -4,4 +4,4 @@
 
 Library used:
 
-    - Picasso: [source](http://stacktips.com/tutorials/android/how-to-use-picasso-library-in-android)
+    - Picasso: [http://stacktips.com/tutorials/android/how-to-use-picasso-library-in-android]
