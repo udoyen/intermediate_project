@@ -16,10 +16,12 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -56,7 +58,7 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
     private ProgressBar progressBar;
 
     /**
-     * SwipeRefreshView
+     * SwipeRefreshLayout
      */
     private SwipeRefreshLayout mySwipeRefreshLayout;
 
@@ -66,7 +68,7 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
         setContentView(R.layout.github_activity);
 
         // Find a reference to the {@link ListView} in the layout
-        ListView githubListView = findViewById(R.id.list);
+        final ListView githubListView = findViewById(R.id.list);
 
         // Get the empty  Text view
         mEmptyStateTextView = findViewById(R.id.empty);
@@ -133,30 +135,51 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
             Log.i(LOG_TAG, "TEST: progressbar made visible ...");
             progressBar.setVisibility(View.GONE);
 
-            //if there's no data to show. display TextView to no internet connection
-            mEmptyStateTextView.setText(R.string.no_internet_connection);
+            // Make sure the ListView is empty before displaying "No Internet Connection"
+            if (mGithubAdapter.isEmpty()) {
+
+                //if there's no data to show. display TextView to no internet connection
+                mEmptyStateTextView.setText(R.string.no_internet_connection);
+            } else {
+
+                //Display Toast message if Github Adapter is not empty
+                Toast.makeText(mGithubAdapter.getContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
+            }
+
 
         }
 
-
         /*
-         * Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
-         * performs a swipe-to-refresh gesture.
+          Use this code to prevent SwipeRefreshLayout from interfering with
+          Scrolling in ListView
          */
         mySwipeRefreshLayout = findViewById(R.id.swiperefresh);
-        mySwipeRefreshLayout.setOnRefreshListener(
-                new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        Log.i(LOG_TAG, "onRefresh called from SwipeRefreshLayout");
 
-                        // This method performs the actual data-refresh operation.
-                        // The method calls setRefreshing(false) when it's finished.
-                        userPageRefreshAction();
+        githubListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
-                    }
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                if (githubListView.getChildAt(0) != null) {
+
+                    mySwipeRefreshLayout.setEnabled(githubListView.getFirstVisiblePosition() == 0 && githubListView.getChildAt(0).getTop() == 0);
+
                 }
-        );
+            }
+        });
+
+        mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                userPageRefreshAction();
+            }
+        });
+
 
     }
 
@@ -288,11 +311,22 @@ public class GithubActivity extends AppCompatActivity implements LoaderCallbacks
             Log.i(LOG_TAG, "TEST: Calling initloader()...");
             loaderManager.initLoader(GITHUB_LOADER_ID, null, this);
 
+            // Remove "No Internet Connection" TextView on reconnecting
+            // if Github Adapter was empty
+            mEmptyStateTextView.setVisibility(View.INVISIBLE);
+
         } else {
 
+            // Make sure the ListView is empty before displaying "No Internet Connection"
+            if (mGithubAdapter.isEmpty()) {
 
-            //if there's no data to show. display TextView to no internet connection
-            mEmptyStateTextView.setText(R.string.no_internet_connection);
+                //if there's no data to show. display TextView to no internet connection
+                mEmptyStateTextView.setText(R.string.no_internet_connection);
+            } else {
+
+                //Display Toast message if Github Adapter is not empty
+                Toast.makeText(mGithubAdapter.getContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
+            }
 
         }
 

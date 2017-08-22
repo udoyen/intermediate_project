@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/swiperefresh_profile1"
+    android:id="@+id/swiperefresh_profille2"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,17 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            android:id="@+id/profile_info_scroll_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="27dp">
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <RelativeLayout
                     android:id="@+id/image_container"
@@ -33,23 +29,20 @@
 
                     <ImageView
                         android:id="@+id/first_dummy"
-                        android:layout_width="144dp"
-                        android:layout_height="144dp"
+                        android:layout_width="154dp"
+                        android:layout_height="154dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="20dp"
                         android:background="@drawable/profile_dummy_image" />
 
-                    <ImageView
-                        android:id="@+id/second_dummy"
-                        android:layout_width="144dp"
-                        android:layout_height="144dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginLeft="190dp"
-                        android:background="@drawable/profile_dummy_image" />
+
 
                     <ImageView
                         android:id="@+id/main_image"
-                        android:layout_width="144dp"
-                        android:layout_height="144dp"
-                        android:layout_marginLeft="100dp"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginTop="27dp"
                         android:background="@drawable/profile_image" />
 
                 </RelativeLayout>
@@ -59,7 +52,8 @@
                     android:id="@+id/text_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="28dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="40dp"
                     android:orientation="vertical"
                     android:padding="4dp">
 
@@ -124,7 +118,7 @@
 
 
             </LinearLayout>
-        </ScrollView>
+
 
 
         <android.support.design.widget.FloatingActionButton
