@@ -1,4 +1,4 @@
-# github_project
+# intermediate project
 
 ### My Andela Intermediary Stage Project App
 
