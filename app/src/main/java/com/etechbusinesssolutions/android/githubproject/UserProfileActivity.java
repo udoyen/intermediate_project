@@ -85,25 +85,25 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-//        /*
-//         * Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
-//         * performs a swipe-to-refresh gesture.
-//         */
-//        mySwipeRefreshLayout = findViewById(R.id.swiperefresh);
-//        mySwipeRefreshLayout.setOnRefreshListener(
-//                new SwipeRefreshLayout.OnRefreshListener() {
-//                    @Override
-//                    public void onRefresh() {
-//                        Log.i(LOG_TAG, "onRefresh called from SwipeRefreshLayout");
-//
-//                        // This method performs the actual data-refresh operation.
-//                        // The method calls setRefreshing(false) when it's finished.
-//                        userPageRefreshAction();
-//
-//
-//                    }
-//                }
-//        );
+        /*
+         * Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
+         * performs a swipe-to-refresh gesture.
+         */
+        mySwipeRefreshLayout = findViewById(R.id.swiperefresh_profile);
+        mySwipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        Log.i(LOG_TAG, "onRefresh called from SwipeRefreshLayout");
+
+                        // This method performs the actual data-refresh operation.
+                        // The method calls setRefreshing(false) when it's finished.
+                        userPageRefreshAction();
+
+
+                    }
+                }
+        );
     }
 
     @Override
@@ -168,8 +168,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
             Log.i(LOG_TAG, "Test: Profile url added ..."); //TODO: Remove
 
-            /**
-             * setup user profile click event
+            /*
+              setup user profile click event
              */
             profileUrlTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -185,7 +185,7 @@ public class UserProfileActivity extends AppCompatActivity {
         }
 
         // Stop loading refreshing animation
-        mySwipeRefreshLayout = findViewById(R.id.swiperefresh);
+        mySwipeRefreshLayout = findViewById(R.id.swiperefresh_profile);
         mySwipeRefreshLayout.setRefreshing(false);
     }
 
