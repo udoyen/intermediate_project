@@ -31,6 +31,10 @@ import java.util.List;
 
 public class GithubActivity extends AppCompatActivity implements LoaderCallbacks<List<Github>> {
 
+    // Used for logging
+    public static final String LOG_TAG = GithubActivity.class.getName();
+
+
     /**
      * URL for github users data from github API
      */
